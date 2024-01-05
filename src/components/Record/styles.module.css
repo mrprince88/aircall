@@ -4,6 +4,8 @@
   margin: 10px 0;
   border-radius: 10px;
   display: flex;
+  text-decoration: none;
+  color: inherit;
 }
 
 .callIcon {

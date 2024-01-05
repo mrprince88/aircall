@@ -1,4 +1,5 @@
 import { Phone, PhoneMissed, Voicemail } from "@emotion-icons/material";
+import { Link } from "react-router-dom";
 import { CallType, RecordProps } from "src/types";
 import classes from "./styles.module.css";
 
@@ -10,7 +11,7 @@ const callIcon: { [key in CallType]: JSX.Element } = {
 
 export default function Record({ call }: RecordProps) {
   return (
-    <div className={classes.container}>
+    <Link to={`/activites/${call.id}`} className={classes.container}>
       <div className={classes.callIcon}>
         {call.call_type && callIcon[call.call_type]}
       </div>
@@ -27,6 +28,6 @@ export default function Record({ call }: RecordProps) {
             minute: "2-digit",
           })}
       </div>
-    </div>
+    </Link>
   );
 }
