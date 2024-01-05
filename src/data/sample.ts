@@ -1,11 +1,13 @@
-const data = [
+import { RecordData } from "../types";
+
+const data: RecordData[] = [
   {
     direction: "outbound",
     from: 100000,
     to: 200000,
     via: 30000000,
     duration: 0,
-    call_type: "missed",
+    call_type: "answered",
     is_archived: true,
     id: "6393bb5469073dc45849ca7a",
     created_at: "2022-12-09T22:48:52.789Z",

@@ -1,6 +1,6 @@
 import Header from "src/components/Header";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import CallsContainer from "src/components/CallsContainer";
+import RecordsContainer from "src/components/RecordsContainer";
 import Tabs from "src/components/Tabs";
 import { Tab } from "./types";
 
@@ -19,8 +19,8 @@ const router = createBrowserRouter([
     path: "/",
     element: <AppLayout />,
     children: [
-      { path: "/", element: <CallsContainer type={Tab.ALL} /> },
-      { path: "/archived", element: <CallsContainer type={Tab.ARCHIVED} /> },
+      { path: "/", element: <RecordsContainer type={Tab.ALL} /> },
+      { path: "/archived", element: <RecordsContainer type={Tab.ARCHIVED} /> },
     ],
     errorElement: <div>Not Found</div>,
   },

@@ -1,10 +1,11 @@
-import Call from "src/components/Call";
-import { CallsContainerProps, Tab } from "src/types";
+import Record from "src/components/Record";
+import { RecordsContainerProps, Tab } from "src/types";
 import classes from "./styles.module.css";
 import data from "src/data/sample";
+import { RecordData } from "src/types";
 
-export default function CallsContainer({ type }: CallsContainerProps) {
-  const filteredData = data
+const getFilteredData = (data: RecordData[]) => {
+  return data
     .sort(
       (a, b) =>
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
@@ -22,7 +23,11 @@ export default function CallsContainer({ type }: CallsContainerProps) {
         acc[dateStr] = [call];
       }
       return acc;
-    }, {} as Record<string, any[]>);
+    }, {} as { [key: string]: RecordData[] });
+};
+
+export default function RecordsContainer({ type }: RecordsContainerProps) {
+  const filteredData = getFilteredData(data);
 
   return (
     <div className={classes.container}>
@@ -30,7 +35,7 @@ export default function CallsContainer({ type }: CallsContainerProps) {
         <div key={date}>
           <div className={classes.date}>{date}</div>
           {filteredData[date].map((call) => (
-            <Call key={call.id} call={call} />
+            <Record key={call.id} call={call} />
           ))}
         </div>
       ))}
