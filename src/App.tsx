@@ -1,13 +1,31 @@
-import Header from "./components/Header";
-import CallsContainer from "./components/CallsContainer";
+import Header from "src/components/Header";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import CallsContainer from "src/components/CallsContainer";
+import Tabs from "src/components/Tabs";
+import { Tab } from "./types";
 
-const App = () => {
+function AppLayout() {
   return (
     <div className="appContainer">
       <Header />
-      <CallsContainer />
+      <Tabs />
+      <Outlet />
     </div>
   );
-};
+}
 
-export default App;
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      { path: "/", element: <CallsContainer type={Tab.ALL} /> },
+      { path: "/archived", element: <CallsContainer type={Tab.ARCHIVED} /> },
+    ],
+    errorElement: <div>Not Found</div>,
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
+}

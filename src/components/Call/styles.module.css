@@ -1,0 +1,48 @@
+.container {
+  border: 0.1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  display: flex;
+}
+
+.callIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.callDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.phone {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.callInfo {
+  font-size: 13px;
+  color: #999;
+  margin-top: 3px;
+  font-weight: lighter;
+}
+
+.callTime {
+  margin-left: auto;
+  font-size: 13px;
+  color: #999;
+  margin-top: 3px;
+  font-weight: lighter;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
