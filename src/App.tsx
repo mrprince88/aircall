@@ -1,11 +1,27 @@
 import Header from "src/components/Header";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import RecordsContainer from "src/components/RecordsContainer";
 import RecordDetails from "src/components/RecordDetails";
 import Tabs from "src/components/Tabs";
 import { Tab } from "./types";
 
 function AppLayout() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      navigate("/activities");
+    }
+  }, [location, navigate]);
+
   return (
     <div className="appContainer">
       <Header />
