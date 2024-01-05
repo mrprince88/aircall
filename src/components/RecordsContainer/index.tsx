@@ -60,7 +60,7 @@ export default function RecordsContainer({ type }: RecordsContainerProps) {
 
   const { mutate: archiveMutate, isLoading: isMutatationLoading } = useMutation(
     async () => {
-      await Promise.all(
+      await Promise.allSettled(
         data?.map((call) =>
           axios.patch(`${import.meta.env.VITE_API_URL}/activities/${call.id}`, {
             is_archived: type === Tab.ALL ? true : false,
