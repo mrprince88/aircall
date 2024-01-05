@@ -8,4 +8,5 @@ export type RecordData = {
   via?: Number;
   duration?: number;
   created_at: string;
+  is_archived: boolean;
 };

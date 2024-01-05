@@ -15,9 +15,9 @@ export default function Record({ call }: RecordProps) {
         {call.call_type && callIcon[call.call_type]}
       </div>
       <div className={classes.callDetails}>
-        <div className={classes.phone}>{String(call.from)}</div>
+        <div className={classes.phone}>{String(call.from || "")}</div>
         <div className={classes.callInfo}>
-          tried to call on {String(call.to)}
+          tried to call on {String(call.to || "")}
         </div>
       </div>
       <div className={classes.callTime}>
