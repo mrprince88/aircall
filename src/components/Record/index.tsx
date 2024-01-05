@@ -3,9 +3,9 @@ import { CallType, RecordProps } from "src/types";
 import classes from "./styles.module.css";
 
 const callIcon: { [key in CallType]: JSX.Element } = {
-  missed: <PhoneMissed />,
-  answered: <Phone />,
-  voicemail: <Voicemail />,
+  missed: <PhoneMissed size={25} />,
+  answered: <Phone size={25} />,
+  voicemail: <Voicemail size={25} />,
 };
 
 export default function Record({ call }: RecordProps) {
