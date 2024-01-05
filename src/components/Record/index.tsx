@@ -11,7 +11,7 @@ const callIcon: { [key in CallType]: JSX.Element } = {
 
 export default function Record({ call }: RecordProps) {
   return (
-    <Link to={`/activites/${call.id}`} className={classes.container}>
+    <Link to={`/activities/${call.id}`} className={classes.container}>
       <div className={classes.callIcon}>
         {call.call_type && callIcon[call.call_type]}
       </div>

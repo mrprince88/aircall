@@ -8,7 +8,7 @@ export default function Tabs() {
         className={({ isActive }) =>
           isActive ? classes.activeTab : classes.tab
         }
-        to="/activites"
+        to="/activities"
         end
       >
         All
@@ -17,7 +17,7 @@ export default function Tabs() {
         className={({ isActive }) =>
           isActive ? classes.activeTab : classes.tab
         }
-        to="/activites/archived"
+        to="/activities/archived"
       >
         Archived
       </NavLink>

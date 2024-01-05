@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path: "/activites",
+        path: "/activities",
         element: <TabLayout />,
         children: [
           {
@@ -43,11 +43,29 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/activites/:id",
+        path: "/activities/:id",
         element: <RecordDetails />,
       },
     ],
-    errorElement: <div>Not Found</div>,
+    errorElement: (
+      <div
+        style={{
+          color: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Not Found
+        <button
+          onClick={() => router.navigate("/activities")}
+          style={{ marginTop: 20 }}
+        >
+          Go to activities
+        </button>
+      </div>
+    ),
   },
 ]);
 

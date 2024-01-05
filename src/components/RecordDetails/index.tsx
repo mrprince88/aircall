@@ -48,7 +48,7 @@ export default function RecordDeatils() {
             if (window.history.length > 1) {
               navigate(-1);
             } else {
-              navigate("/activites");
+              navigate("/activities");
             }
           }}
         >
