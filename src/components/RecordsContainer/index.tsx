@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery, useMutation } from "react-query";
 import axios from "axios";
 import { Archive } from "@emotion-icons/material";
@@ -31,42 +32,72 @@ const getFilteredData = (data: RecordData[]) => {
 };
 
 export default function RecordsContainer({ type }: RecordsContainerProps) {
-  const { data, isLoading } = useQuery<{ [key: string]: RecordData[] }>(
+  const [filteredData, setFilteredData] = useState<{
+    [key: string]: RecordData[];
+  }>({});
+
+  const {
+    data,
+    isLoading: isRecordDataLoading,
+    refetch,
+  } = useQuery<RecordData[]>(
     ["records", type],
     async () => {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/activities`);
-      if (type === Tab.ALL)
-        return getFilteredData(
-          res.data.filter((call: RecordData) => !call.is_archived) || []
-        );
-      else
-        return getFilteredData(
-          res.data.filter((call: RecordData) => call.is_archived) || []
-        );
+      return res.data.filter(
+        (call: RecordData) => call.is_archived === (type === Tab.ARCHIVED)
+      );
     },
     {
       onError: (err) => {
         alert(err);
+      },
+      onSuccess: (data: RecordData[]) => {
+        setFilteredData(getFilteredData(data));
+      },
+    }
+  );
+
+  const { mutate: archiveMutate, isLoading: isMutatationLoading } = useMutation(
+    async () => {
+      await Promise.all(
+        data?.map((call) =>
+          axios.patch(`${import.meta.env.VITE_API_URL}/activities/${call.id}`, {
+            is_archived: type === Tab.ALL ? true : false,
+          })
+        ) || []
+      );
+    },
+    {
+      onSuccess: () => {
+        refetch();
       },
     }
   );
 
   return (
     <div className={classes.container}>
-      {isLoading ? (
+      {isRecordDataLoading ? (
         <div className={classes.loading}>Loading...</div>
       ) : !data ? (
         <div className={classes.noData}>No data</div>
       ) : (
         <>
-          <button className={classes.archiveBtn}>
-            <Archive size={30} color="#ddd" style={{ marginRight: 5 }} />
-            Archive all calls
+          <button
+            className={classes.archiveBtn}
+            onClick={() => archiveMutate()}
+          >
+            {isMutatationLoading ? (
+              <div className="loader" />
+            ) : (
+              <Archive size={30} color="#ddd" style={{ marginRight: 5 }} />
+            )}
+            {`${type === Tab.ALL ? "Archive" : "Unarchive"} all calls`}
           </button>
-          {Object.keys(data).map((date) => (
+          {Object.keys(filteredData).map((date) => (
             <div key={date}>
               <div className={classes.date}>{date}</div>
-              {data[date].map((call) => (
+              {filteredData[date].map((call) => (
                 <Record key={call.id} call={call} />
               ))}
             </div>

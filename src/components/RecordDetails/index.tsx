@@ -9,7 +9,7 @@ export default function RecordDeatils() {
   const navigate = useNavigate();
   const params = useParams();
 
-  const { data, isLoading } = useQuery<RecordData>(
+  const { data, isLoading, refetch } = useQuery<RecordData>(
     "record",
     async () => {
       const { data } = await axios.get(
@@ -23,7 +23,7 @@ export default function RecordDeatils() {
     }
   );
 
-  const { mutate: archiveMutate } = useMutation(
+  const { mutate: archiveMutate, isLoading: mutationLoading } = useMutation(
     async () => {
       await axios.patch(
         `${import.meta.env.VITE_API_URL}/activities/${params.id}`,
@@ -34,7 +34,7 @@ export default function RecordDeatils() {
     },
     {
       onSuccess: () => {
-        navigate("/activites");
+        refetch();
       },
     }
   );
@@ -82,7 +82,11 @@ export default function RecordDeatils() {
               className={classes.archiveBtn}
               onClick={() => archiveMutate()}
             >
-              <Archive size={25} style={{ marginRight: 5 }} />{" "}
+              {mutationLoading ? (
+                <div className="loader" />
+              ) : (
+                <Archive size={25} style={{ marginRight: 5 }} />
+              )}
               {data.is_archived ? "Unarchive" : "Archive"}
             </button>
           </>
